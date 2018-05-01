@@ -92,7 +92,6 @@ namespace ChatRouletteFunction
 
             //bullying detection
             var bullyingData = await GetBullyingData(bullyingApiUrl, bullyingApiKey, queueItem.Message.ToString());
-            //do something with the repsonse
 
             // Create the TableOperation object that inserts the entity
             var messagesTable = tableClient.GetTableReference(messagesTableContainerName);
