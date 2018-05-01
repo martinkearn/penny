@@ -1,0 +1,68 @@
+﻿@model Models.Chat
+
+@{
+    ViewData["Title"] = $"Chat Details";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <h4>Chat</h4>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Time
+                </th>
+                <th>
+                    User
+                </th>
+                <th>
+                    Message
+                </th>
+                <th>
+                    Sentiment
+                </th>
+                <th>
+                    Key Phrases
+                </th>
+                <th>
+                    Interesting Events
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var message in Model.Messages)
+            {
+            <tr>
+                <td>
+                    @message.Time.ToShortTimeString()
+                </td>
+                <td>
+                    @message.UserId
+                </td>
+                <td>
+                    @message.Message
+                </td>
+                <td>
+                    @string.Format("{0:0%}", message.Sentiment)
+                </td>
+                <td>
+                    @message.KeyPhrases
+                </td>
+                <td>
+                    @foreach (var alert in message.Alerts)
+                    { 
+                        <span>@alert.AlertCategory </span>
+                    }
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>  |  
+    <a asp-controller="Chats" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+</div>

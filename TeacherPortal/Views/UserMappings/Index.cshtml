@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Models.UserMapping>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.User1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User2)
+                </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User2)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { id = item.RowKey })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

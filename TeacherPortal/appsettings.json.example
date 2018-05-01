@@ -1,0 +1,14 @@
+﻿{
+  "AppSettings": {
+    "MessagesTableContainerName": "",
+    "StorageConnectionString": "",
+    "MappingTableContainerName": "",
+    "AlertsTableContainerName": ""
+  },
+  "Logging": {
+    "IncludeScopes": false,
+    "LogLevel": {
+      "Default": "Warning"
+    }
+  }
+}

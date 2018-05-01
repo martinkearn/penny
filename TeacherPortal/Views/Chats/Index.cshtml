@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Models.Chat>
+
+@{
+    ViewData["Title"] = "Chats";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Participants
+            </th>
+            <th>
+                Messages
+            </th>
+            <th>
+                Average Sentiment
+            </th>
+            <th>
+                Interesting Events
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                <a asp-controller="Chats" asp-action="Details" asp-route-id="@item.Id">
+                    @foreach (var participant in item.Participants)
+            {
+                <span>@participant</span>
+    }
+                </a>
+            </td>
+            <td>
+                @item.Messages.Count()
+            </td>
+            <td>
+                @string.Format("{0:0%}", item.Sentiment)
+            </td>
+            <td>
+                @item.AlertCount
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
