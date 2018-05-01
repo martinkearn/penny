@@ -1,0 +1,9 @@
+{
+  "name": "chat-app",
+  "version": "0.0.0",
+  "description": "ChatApp",
+  "main": "server.js",
+  "author": {
+    "name": "mkearn"
+  }
+}

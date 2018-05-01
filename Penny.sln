@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SendMessageToQueue", "SendM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{08A000E9-22D0-4827-AD1B-48C537FBAA20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatRouletteFunction", "ChatRouletteFunction\ChatRouletteFunction.csproj", "{16D85CED-CB37-40F9-8AC4-AD53FB276970}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatRouletteFunction", "ChatRouletteFunction\ChatRouletteFunction.csproj", "{16D85CED-CB37-40F9-8AC4-AD53FB276970}"
+EndProject
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "ChatApp", "ChatApp\ChatApp.njsproj", "{DF41E592-C6C6-4CD8-BBF4-B02F28B204C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{16D85CED-CB37-40F9-8AC4-AD53FB276970}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16D85CED-CB37-40F9-8AC4-AD53FB276970}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16D85CED-CB37-40F9-8AC4-AD53FB276970}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF41E592-C6C6-4CD8-BBF4-B02F28B204C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF41E592-C6C6-4CD8-BBF4-B02F28B204C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF41E592-C6C6-4CD8-BBF4-B02F28B204C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF41E592-C6C6-4CD8-BBF4-B02F28B204C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
