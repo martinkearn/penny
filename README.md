@@ -5,8 +5,17 @@ Children are paired with another active user (either randomly or via pre-configu
 
 Penny comprises a web-based chat interface and a web based Teacher Portal which is used for analysis.
 
+## Origin
+This system was originally designed and developed by a group of Microsoft software engineers at an internal hackathon. The original team were:
+* Martin Kearn
+* Nick Page
+* Marian O'Sullivan
+* Tracey Trewin
+* Sherif El Mahdi
+* Anastasia Zolochevska
+
 ### Penny?
 The system is named after Inspector Gadget's niece 'Penny' (https://en.wikipedia.org/wiki/Inspector_Gadget). Penny is described as "know-it-all niece and the one who really stops the evil schemes. She uses many high tech devices to help her secretly solve the cases and stop the bad guys" this seemed to be a fitting description for this system for these reasons:
-* User investigate their anonymous chat partner via the system
+* Users investigate their anonymous chat partner via the system
 * The system using technology (AI) to analyse and detect threats
 * The system will go some way to stopping the "evil schemes" that children are vulnerable to online
