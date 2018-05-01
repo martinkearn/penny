@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SendMessageToQueue", "SendM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{08A000E9-22D0-4827-AD1B-48C537FBAA20}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatRouletteFunction", "ChatRouletteFunction\ChatRouletteFunction.csproj", "{16D85CED-CB37-40F9-8AC4-AD53FB276970}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageProcessingFunction", "ChatRouletteFunction\MessageProcessingFunction.csproj", "{16D85CED-CB37-40F9-8AC4-AD53FB276970}"
 EndProject
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "ChatApp", "ChatApp\ChatApp.njsproj", "{DF41E592-C6C6-4CD8-BBF4-B02F28B204C3}"
 EndProject
