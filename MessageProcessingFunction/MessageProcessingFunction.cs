@@ -14,7 +14,7 @@ using Newtonsoft.Json.Linq;
 
 namespace ChatRouletteFunction
 {
-    public static class Function1
+    public static class MessageProcessingFunction
     {
         [FunctionName("MessageProcessingFunction")]
         public static async Task Run([QueueTrigger("messagesqueue", Connection = "AzureWebJobsStorage")]string myQueueItem, TraceWriter log)
