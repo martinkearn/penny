@@ -2,15 +2,16 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <Name>ChatApp</Name>
-    <RootNamespace>ChatApp</RootNamespace>
+    <Name>Chat</Name>
+    <RootNamespace>Chat</RootNamespace>
     <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
+    <NameOfLastUsedPublishProfile>penny-chat - Web Deploy</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>df41e592-c6c6-4cd8-bbf4-b02f28b204c3</ProjectGuid>
+    <ProjectGuid>f9d3b454-95b7-499e-95b1-6c8cadc36068</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <StartupFile>server.js</StartupFile>
     <SearchPath>
@@ -33,9 +34,12 @@
     <Compile Include="server.js" />
     <Compile Include="src\log.js" />
     <Compile Include="src\storage.js" />
-    <Content Include="package.json" />
+    <None Include="penny-chat - Web Deploy.pubxml" />
     <Content Include="public\index.html" />
     <Content Include="public\style.css" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config" />
+    <Content Include="package.json" />
     <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>

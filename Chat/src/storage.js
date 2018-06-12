@@ -34,7 +34,7 @@ function getPredifinedMatches() {
 
 function addMessageToTable(from, chatId, message) {
     var entity = {
-        PartitionKey: "chatroulette",
+        PartitionKey: "penny",
         ChatId: chatId,
         UserId: from,
         Time: new Date(),
