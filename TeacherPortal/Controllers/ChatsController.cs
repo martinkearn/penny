@@ -26,36 +26,49 @@ namespace TeacherPortal.Controllers
         }
 
         // GET: Chats/Details/5
-        public async Task<ActionResult> Details(string id, string onlyShowUser, bool hideParticipantNames)
+        public async Task<ActionResult> Details(string id, string onlyShowUser, bool hideParticipantNames, string newestMessageTimestamp)
         {
             var chat = await _storeRepository.GetChat(id);
+            var visibleChat = await _storeRepository.GetChat(id);
+
+            //filter on message time if defined
+            var newestMessageTimestampAsDate = Convert.ToDateTime(newestMessageTimestamp);
+            if (!string.IsNullOrEmpty(newestMessageTimestamp))
+            {
+                visibleChat.Messages = visibleChat.Messages.Where(o => o.Time <= newestMessageTimestampAsDate).ToList();
+            }
 
             //filter on user if defined
             if (!string.IsNullOrEmpty(onlyShowUser))
             {
-                chat.Messages = chat.Messages.Where(o => o.UserId.ToLower() == onlyShowUser.ToLower()).ToList();
+                visibleChat.Messages = visibleChat.Messages
+                    .Where(o => o.UserId.ToLower() == onlyShowUser.ToLower())
+                    .ToList();
             }
 
             //if hideParticipantNames, replace names with user numbers
             if (hideParticipantNames)
             {
-                for (int i = 1; i <= chat.Participants.Count; i++)
+                for (int i = 1; i <= visibleChat.Participants.Count; i++)
                 {
-                    var originalName = chat.Participants[i - 1];
+                    var originalName = visibleChat.Participants[i - 1];
                     var newName = $"User {i.ToString()}";
-                    foreach (var message in chat.Messages.Where(o => o.UserId == originalName))
+                    foreach (var message in visibleChat.Messages.Where(o => o.UserId == originalName))
                     {
                         message.UserId = newName;
                     }
                 }
             }
 
+
             var vm = new ChatDetailsViewModel()
             {
                 Chat = chat,
+                VisibleChat = visibleChat,
                 GradualReveal = false,
                 HideParticipantNames = hideParticipantNames,
-                OnlyShowUser = onlyShowUser
+                OnlyShowUser = onlyShowUser,
+                NewestMessageTimestamp = newestMessageTimestampAsDate
             };
 
             return View(vm);
