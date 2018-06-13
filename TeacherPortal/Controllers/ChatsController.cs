@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TeacherPortal.Interfaces;
+using TeacherPortal.Models;
 
 namespace TeacherPortal.Controllers
 {
@@ -25,10 +26,38 @@ namespace TeacherPortal.Controllers
         }
 
         // GET: Chats/Details/5
-        public async Task<ActionResult> Details(string id)
+        public async Task<ActionResult> Details(string id, string onlyShowUser, bool hideParticipantNames)
         {
             var chat = await _storeRepository.GetChat(id);
-            return View(chat);
+
+            //filter on user if defined
+            if (!string.IsNullOrEmpty(onlyShowUser))
+            {
+                chat.Messages = chat.Messages.Where(o => o.UserId.ToLower() == onlyShowUser.ToLower()).ToList();
+            }
+
+            //if hideParticipantNames, replace names with user numbers
+            if (hideParticipantNames)
+            {
+                for (int i = 1; i <= chat.Participants.Count; i++)
+                {
+                    var originalName = chat.Participants[i - 1];
+                    var newName = $"User {i.ToString()}";
+                    foreach (var message in chat.Messages.Where(o => o.UserId == originalName))
+                    {
+                        message.UserId = newName;
+                    }
+                }
+            }
+
+            var vm = new ChatDetailsViewModel()
+            {
+                Chat = chat,
+                GradualReveal = false,
+                HideParticipantNames = hideParticipantNames
+            };
+
+            return View(vm);
         }
 
 

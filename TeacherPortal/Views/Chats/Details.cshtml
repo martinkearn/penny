@@ -1,4 +1,4 @@
-﻿@model Models.Chat
+﻿@model TeacherPortal.Models.ChatDetailsViewModel
 
 @{
     ViewData["Title"] = $"Chat Details";
@@ -33,36 +33,49 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var message in Model.Messages)
+            @foreach (var message in Model.Chat.Messages)
             {
-            <tr>
-                <td>
-                    @message.Time.ToShortTimeString()
-                </td>
-                <td>
-                    @message.UserId
-                </td>
-                <td>
-                    @message.Message
-                </td>
-                <td>
-                    @string.Format("{0:0%}", message.Sentiment)
-                </td>
-                <td>
-                    @message.KeyPhrases
-                </td>
-                <td>
-                    @foreach (var alert in message.Alerts)
-                    { 
-                        <span>@alert.AlertCategory </span>
-                    }
-                </td>
-            </tr>
+                <tr>
+                    <td>
+                        @message.Time.ToShortTimeString()
+                    </td>
+                    <td>
+                        @message.UserId
+                    </td>
+                    <td>
+                        @message.Message
+                    </td>
+                    <td>
+                        @string.Format("{0:0%}", message.Sentiment)
+                    </td>
+                    <td>
+                        @message.KeyPhrases
+                    </td>
+                    <td>
+                        @foreach (var alert in message.Alerts)
+                        {
+                            <span>@alert.AlertCategory </span>
+                        }
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
 </div>
 <div>
-    <a asp-action="Index">Back to all chats</a>  |  
-    <a asp-controller="Chats" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
+    @foreach (var participant in Model.Chat.Participants)
+    {
+        <a asp-controller="Chats" asp-action="Details" asp-route-id="@Model.Chat.Id" asp-route-onlyShowUser="@participant">Just @participant</a><span>  |</span>
+    }
+    <a asp-controller="Chats" asp-action="Details" asp-route-id="@Model.Chat.Id">All messages</a>  |
+    @if (Model.HideParticipantNames)
+    {
+        <a asp-controller="Chats" asp-action="Details" asp-route-id="@Model.Chat.Id" asp-route-hideParticipantNames="false">Reveal Names</a><span>  |</span>
+    }
+    else
+    {
+        <a asp-controller="Chats" asp-action="Details" asp-route-id="@Model.Chat.Id" asp-route-hideParticipantNames="true">Hide Names</a><span>  |</span>
+    }
+    <a asp-action="Index">All chats</a>  |
+    <a asp-controller="Chats" asp-action="Delete" asp-route-id="@Model.Chat.Id">Delete</a>
 </div>
