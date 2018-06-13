@@ -54,7 +54,8 @@ namespace TeacherPortal.Controllers
             {
                 Chat = chat,
                 GradualReveal = false,
-                HideParticipantNames = hideParticipantNames
+                HideParticipantNames = hideParticipantNames,
+                OnlyShowUser = onlyShowUser
             };
 
             return View(vm);

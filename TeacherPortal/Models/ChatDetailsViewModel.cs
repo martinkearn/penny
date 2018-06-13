@@ -12,6 +12,8 @@ namespace TeacherPortal.Models
 
         public bool HideParticipantNames { get; set; }
 
+        public string OnlyShowUser { get; set; }
+
         public bool GradualReveal { get; set; }
     }
 }

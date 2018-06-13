@@ -63,19 +63,28 @@
     </table>
 </div>
 <div>
-    @foreach (var participant in Model.Chat.Participants)
+    @if (!string.IsNullOrEmpty(Model.OnlyShowUser))
     {
-        <a asp-controller="Chats" asp-action="Details" asp-route-id="@Model.Chat.Id" asp-route-onlyShowUser="@participant">Just @participant</a><span>  |</span>
-    }
-    <a asp-controller="Chats" asp-action="Details" asp-route-id="@Model.Chat.Id">All messages</a>  |
-    @if (Model.HideParticipantNames)
-    {
-        <a asp-controller="Chats" asp-action="Details" asp-route-id="@Model.Chat.Id" asp-route-hideParticipantNames="false">Reveal Names</a><span>  |</span>
+        <a asp-controller="Chats" asp-action="Details" asp-route-id="@Model.Chat.Id" asp-route-onlyShowUser="" asp-route-hideParticipantNames="@Model.HideParticipantNames">All messages</a><span>  |</span>
     }
     else
     {
-        <a asp-controller="Chats" asp-action="Details" asp-route-id="@Model.Chat.Id" asp-route-hideParticipantNames="true">Hide Names</a><span>  |</span>
+        @foreach (var participant in Model.Chat.Participants)
+        {
+            <a asp-controller="Chats" asp-action="Details" asp-route-id="@Model.Chat.Id" asp-route-onlyShowUser="@participant" asp-route-hideParticipantNames="@Model.HideParticipantNames">Just @participant</a><span>  |</span>
+        }
     }
+
+    @if (Model.HideParticipantNames)
+    {
+        <a asp-controller="Chats" asp-action="Details" asp-route-id="@Model.Chat.Id" asp-route-onlyShowUser="@Model.OnlyShowUser" asp-route-hideParticipantNames="false">Reveal Names</a><span>  |</span>
+    }
+    else
+    {
+        <a asp-controller="Chats" asp-action="Details" asp-route-id="@Model.Chat.Id" asp-route-onlyShowUser="@Model.OnlyShowUser" asp-route-hideParticipantNames="true">Hide Names</a><span>  |</span>
+    }
+
     <a asp-action="Index">All chats</a>  |
+
     <a asp-controller="Chats" asp-action="Delete" asp-route-id="@Model.Chat.Id">Delete</a>
 </div>
