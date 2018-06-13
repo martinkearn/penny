@@ -7,9 +7,16 @@
 <h2>@ViewData["Title"]</h2>
 
 <div>
-    <h4>
-        Between @Model.Chat.Messages.Select(x => x.UserId).Distinct().ToList()[0] and @Model.Chat.Messages.Select(x => x.UserId).Distinct().ToList()[1]
-    </h4>
+
+    @if (string.IsNullOrEmpty(Model.OnlyShowUser))
+    {
+        <h4>
+            <span>
+                Between @Model.Chat.Messages.Select(x => x.UserId).Distinct().ToList()[0] and @Model.Chat.Messages.Select(x => x.UserId).Distinct().ToList()[1]
+            </span>
+        </h4>
+    }
+
     <hr />
     <table class="table">
         <thead>
