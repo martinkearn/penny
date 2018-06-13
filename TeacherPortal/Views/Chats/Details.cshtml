@@ -112,16 +112,21 @@
     }
     else
     {
-        @foreach (var participant in Model.Chat.Participants)
-        {
-            <a asp-controller="Chats"
-               asp-action="Details"
-               asp-route-id="@Model.Chat.Id"
-               asp-route-onlyShowUser="@participant"
-               asp-route-hideParticipantNames="@Model.HideParticipantNames"
-               asp-route-newestMessageTimestamp="@Model.NewestMessageTimestamp"
-               class="btn btn-default"><span>Just </span>@participant</a>
-        }
+        <a asp-controller="Chats"
+           asp-action="Details"
+           asp-route-id="@Model.Chat.Id"
+           asp-route-onlyShowUser="@Model.Chat.Participants[0]"
+           asp-route-hideParticipantNames="@Model.HideParticipantNames"
+           asp-route-newestMessageTimestamp="@Model.NewestMessageTimestamp"
+           class="btn btn-default"><span>Just User 1</span></a>
+
+        <a asp-controller="Chats"
+           asp-action="Details"
+           asp-route-id="@Model.Chat.Id"
+           asp-route-onlyShowUser="@Model.Chat.Participants[1]"
+           asp-route-hideParticipantNames="@Model.HideParticipantNames"
+           asp-route-newestMessageTimestamp="@Model.NewestMessageTimestamp"
+           class="btn btn-default"><span>Just User 2</span></a>
     }
 
     @if (Model.HideParticipantNames)
