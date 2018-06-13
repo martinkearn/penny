@@ -4,6 +4,10 @@
     ViewData["Title"] = "Chats";
 }
 
+@section Head{
+    <meta http-equiv="refresh" content="10" />
+    }
+
 <h2>@ViewData["Title"]</h2>
 
 <table class="table">
@@ -24,27 +28,28 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                <a asp-controller="Chats" asp-action="Details" asp-route-id="@item.Id">
-                    @foreach (var participant in item.Participants)
-            {
-                <span>@participant</span>
-    }
-                </a>
-            </td>
-            <td>
-                @item.Messages.Count()
-            </td>
-            <td>
-                @string.Format("{0:0%}", item.Sentiment)
-            </td>
-            <td>
-                @item.AlertCount
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="Chats" asp-action="Details" asp-route-id="@item.Id">
+                        @foreach (var participant in item.Participants)
+                        {
+                            <span>@participant</span>
+                        }
+                    </a>
+                </td>
+                <td>
+                    @item.Messages.Count()
+                </td>
+                <td>
+                    @string.Format("{0:0%}", item.Sentiment)
+                </td>
+                <td>
+                    @item.AlertCount
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 <div>

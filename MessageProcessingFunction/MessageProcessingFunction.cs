@@ -189,6 +189,10 @@ namespace ChatRouletteFunction
                     return "Name";
                 case "builtin.email":
                     return "Email";
+                case "events.address":
+                    return "Address";
+                case "builtin.phonenumber":
+                    return "Phone";
                 default:
                     return rawCategory;
             }
