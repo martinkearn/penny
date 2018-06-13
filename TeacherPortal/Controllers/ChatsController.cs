@@ -38,5 +38,12 @@ namespace TeacherPortal.Controllers
             var deleted = await _storeRepository.DeleteChat(id, "penny");
             return RedirectToAction(nameof(Index));
         }
+
+        // GET: Chats/Delete
+        public async Task<ActionResult> DeleteAll()
+        {
+            var deleted = await _storeRepository.DeleteAllChats("penny");
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

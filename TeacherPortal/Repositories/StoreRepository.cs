@@ -130,48 +130,16 @@ namespace TeacherPortal.Repositories
         {
             var messages = await GetChatMessages(ChatId, true);
 
-            //first delete any alerts stored against messages in chat
-            var alerts = new List<Alert>();
-            foreach (var message in messages.Where(x => x.Alerts.Count > 0).ToList())
-            {
-                foreach (var alertForMessage in message.Alerts)
-                {
-                    alerts.Add(alertForMessage);
-                }
-            }
-            var allAlertIds = alerts.Select(x => x.RowKey).ToList();
-            var alertIdsChunk = allAlertIds.ChunkBy(100);
-            var alertsTable = await GetCloudTable(_appSettings.StorageConnectionString, _appSettings.AlertsTableContainerName);
-            foreach (var alertIds in alertIdsChunk)
-            {
-                TableBatchOperation batchOperation = new TableBatchOperation();
-                foreach (var alertId in alertIds)
-                {
-                    TableOperation retrieveOperation = TableOperation.Retrieve<TableEntityAdapter<Alert>>(partitionKey, alertId);
-                    TableResult retrievedResult = await alertsTable.ExecuteAsync(retrieveOperation);
-                    var result = (TableEntityAdapter<Alert>)retrievedResult.Result;
-                    batchOperation.Delete(result);
-                }
-                await alertsTable.ExecuteBatchAsync(batchOperation);
-            }
+            await DeleteMessages(partitionKey, messages);
 
+            return true;
+        }
 
-            //now delete messages
-            var messagesTable = await GetCloudTable(_appSettings.StorageConnectionString, _appSettings.MessagesTableContainerName);
-            var allMessageIds = messages.Select(x => x.RowKey).ToList();
-            var messageIdsChunk = allMessageIds.ChunkBy(100);
-            foreach (var messageIds in messageIdsChunk)
-            {
-                TableBatchOperation batchOperation = new TableBatchOperation();
-                foreach (var messageId in messageIds)
-                {
-                    TableOperation retrieveOperation = TableOperation.Retrieve<TableEntityAdapter<ChatMessage>>(partitionKey, messageId);
-                    TableResult retrievedResult = await messagesTable.ExecuteAsync(retrieveOperation);
-                    var result = (TableEntityAdapter<ChatMessage>)retrievedResult.Result;
-                    batchOperation.Delete(result);
-                }
-                await messagesTable.ExecuteBatchAsync(batchOperation);
-            }
+        public async Task<bool> DeleteAllChats(string partitionKey)
+        {
+            var messages = await GetChatMessages(null, true);
+
+            await DeleteMessages(partitionKey, messages);
 
             return true;
         }
@@ -313,6 +281,54 @@ namespace TeacherPortal.Repositories
             }
 
             return alerts;
+        }
+
+        private async Task<bool> DeleteMessages(string partitionKey, List<ChatMessage> messages)
+        {
+            //first delete any alerts stored against messages in chat
+            var alerts = new List<Alert>();
+            foreach (var message in messages.Where(x => x.Alerts.Count > 0).ToList())
+            {
+                foreach (var alertForMessage in message.Alerts)
+                {
+                    alerts.Add(alertForMessage);
+                }
+            }
+            var allAlertIds = alerts.Select(x => x.RowKey).ToList();
+            var alertIdsChunk = allAlertIds.ChunkBy(100);
+            var alertsTable = await GetCloudTable(_appSettings.StorageConnectionString, _appSettings.AlertsTableContainerName);
+            foreach (var alertIds in alertIdsChunk)
+            {
+                TableBatchOperation batchOperation = new TableBatchOperation();
+                foreach (var alertId in alertIds)
+                {
+                    TableOperation retrieveOperation = TableOperation.Retrieve<TableEntityAdapter<Alert>>(partitionKey, alertId);
+                    TableResult retrievedResult = await alertsTable.ExecuteAsync(retrieveOperation);
+                    var result = (TableEntityAdapter<Alert>)retrievedResult.Result;
+                    batchOperation.Delete(result);
+                }
+                await alertsTable.ExecuteBatchAsync(batchOperation);
+            }
+
+
+            //now delete messages
+            var messagesTable = await GetCloudTable(_appSettings.StorageConnectionString, _appSettings.MessagesTableContainerName);
+            var allMessageIds = messages.Select(x => x.RowKey).ToList();
+            var messageIdsChunk = allMessageIds.ChunkBy(100);
+            foreach (var messageIds in messageIdsChunk)
+            {
+                TableBatchOperation batchOperation = new TableBatchOperation();
+                foreach (var messageId in messageIds)
+                {
+                    TableOperation retrieveOperation = TableOperation.Retrieve<TableEntityAdapter<ChatMessage>>(partitionKey, messageId);
+                    TableResult retrievedResult = await messagesTable.ExecuteAsync(retrieveOperation);
+                    var result = (TableEntityAdapter<ChatMessage>)retrievedResult.Result;
+                    batchOperation.Delete(result);
+                }
+                await messagesTable.ExecuteBatchAsync(batchOperation);
+            }
+
+            return true;
         }
 
     }

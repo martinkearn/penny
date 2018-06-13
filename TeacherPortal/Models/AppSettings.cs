@@ -14,5 +14,6 @@ namespace TeacherPortal.Models
         public string MappingTableContainerName { get; set; }
 
         public string AlertsTableContainerName { get; set; }
+
     }
 }

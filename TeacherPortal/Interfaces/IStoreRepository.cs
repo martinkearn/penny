@@ -17,6 +17,8 @@ namespace TeacherPortal.Interfaces
 
         Task<bool> DeleteChat(string ChatId, string partitionKey);
 
+        Task<bool> DeleteAllChats(string partitionKey);
+
         Task<bool> InsertUserMapping(UserMapping userMapping, string partitionKey);
 
         Task<bool> DeleteUserMapping(string partitionKey, string rowKey);
