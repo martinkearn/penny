@@ -33,7 +33,12 @@ namespace TeacherPortal.Controllers
             var messageTimes = chat.Messages.Select(o => o.Time).ToList();
 
             //filter on message time if defined
-            var newestMessageTimestampAsDate = Convert.ToDateTime(newestMessageTimestamp);
+            var newestMessageTimestampAsDate = DateTime.UtcNow;
+            if (!string.IsNullOrEmpty(newestMessageTimestamp))
+            {
+                newestMessageTimestampAsDate = Convert.ToDateTime(newestMessageTimestamp);
+            }
+            
             if (!string.IsNullOrEmpty(newestMessageTimestamp))
             {
                 chat.Messages = chat.Messages.Where(o => o.Time <= newestMessageTimestampAsDate).ToList();
@@ -60,7 +65,6 @@ namespace TeacherPortal.Controllers
                     }
                 }
             }
-
 
             var vm = new ChatDetailsViewModel()
             {
