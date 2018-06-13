@@ -7,7 +7,9 @@
 <h2>@ViewData["Title"]</h2>
 
 <div>
-    <h4>Chat</h4>
+    <h4>
+        Between @Model.Chat.Messages.Select(x => x.UserId).Distinct().ToList()[0] and @Model.Chat.Messages.Select(x => x.UserId).Distinct().ToList()[1]
+    </h4>
     <hr />
     <table class="table">
         <thead>
