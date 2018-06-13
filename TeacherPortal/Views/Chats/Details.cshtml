@@ -33,7 +33,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var message in Model.VisibleChat.Messages)
+            @foreach (var message in Model.Chat.Messages)
             {
                 <tr>
                     <td>
@@ -62,19 +62,33 @@
         </tbody>
     </table>
 
-    <h4>Only show messages up to</h4>
+    <h4>Filters</h4>
     <nav aria-label="...">
         <ul class="pagination pagination-sm">
-            @foreach (var message in Model.Chat.Messages)
+            @foreach (var messageTime in Model.MessageTimes)
             {
-                <li class="page-item">
-                    <a asp-controller="Chats"
-                       asp-action="Details"
-                       asp-route-id="@Model.Chat.Id"
-                       asp-route-onlyShowUser="@Model.OnlyShowUser"
-                       asp-route-hideParticipantNames="@Model.HideParticipantNames"
-                       asp-route-newestMessageTimestamp="@message.Time.ToString()">@message.Time.ToLongTimeString()</a>
-                </li>
+                @if (Model.NewestMessageTimestamp.ToLongTimeString() == messageTime.ToLongTimeString())
+                {
+                    <li class="page-item active">
+                        <a asp-controller="Chats"
+                           asp-action="Details"
+                           asp-route-id="@Model.Chat.Id"
+                           asp-route-onlyShowUser="@Model.OnlyShowUser"
+                           asp-route-hideParticipantNames="@Model.HideParticipantNames"
+                           asp-route-newestMessageTimestamp="@messageTime.ToString()">@messageTime.ToLongTimeString()</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a asp-controller="Chats"
+                           asp-action="Details"
+                           asp-route-id="@Model.Chat.Id"
+                           asp-route-onlyShowUser="@Model.OnlyShowUser"
+                           asp-route-hideParticipantNames="@Model.HideParticipantNames"
+                           asp-route-newestMessageTimestamp="@messageTime.ToString()">@messageTime.ToLongTimeString()</a>
+                    </li>
+                }
             }
             <li class="page-item">
                 <a asp-controller="Chats"
@@ -86,53 +100,54 @@
             </li>
         </ul>
     </nav>
-</div>
-<div>
     @if (!string.IsNullOrEmpty(Model.OnlyShowUser))
     {
-        <a 
-           asp-controller="Chats" 
-           asp-action="Details" 
-           asp-route-id="@Model.Chat.Id" 
-           asp-route-onlyShowUser="" 
-           asp-route-hideParticipantNames="@Model.HideParticipantNames" 
-           asp-route-newestMessageTimestamp="@Model.NewestMessageTimestamp">Everyones Messages</a><span>  |</span>
+        <a asp-controller="Chats"
+           asp-action="Details"
+           asp-route-id="@Model.Chat.Id"
+           asp-route-onlyShowUser=""
+           asp-route-hideParticipantNames="@Model.HideParticipantNames"
+           asp-route-newestMessageTimestamp="@Model.NewestMessageTimestamp"
+           class="btn btn-default">Everyones Messages</a>
     }
     else
     {
         @foreach (var participant in Model.Chat.Participants)
         {
-            <a 
-               asp-controller="Chats" 
-               asp-action="Details" 
-               asp-route-id="@Model.Chat.Id" 
-               asp-route-onlyShowUser="@participant" 
-               asp-route-hideParticipantNames="@Model.HideParticipantNames" 
-               asp-route-newestMessageTimestamp="@Model.NewestMessageTimestamp">Just @participant</a><span>  |</span>
+            <a asp-controller="Chats"
+               asp-action="Details"
+               asp-route-id="@Model.Chat.Id"
+               asp-route-onlyShowUser="@participant"
+               asp-route-hideParticipantNames="@Model.HideParticipantNames"
+               asp-route-newestMessageTimestamp="@Model.NewestMessageTimestamp"
+               class="btn btn-default"><span>Just </span>@participant</a>
         }
     }
 
     @if (Model.HideParticipantNames)
     {
-        <a 
-           asp-controller="Chats" 
-           asp-action="Details" 
-           asp-route-id="@Model.Chat.Id" 
-           asp-route-onlyShowUser="@Model.OnlyShowUser" 
-           asp-route-hideParticipantNames="false" 
-           asp-route-newestMessageTimestamp="@Model.NewestMessageTimestamp">Reveal Names</a><span>  |</span>
+        <a asp-controller="Chats"
+           asp-action="Details"
+           asp-route-id="@Model.Chat.Id"
+           asp-route-onlyShowUser="@Model.OnlyShowUser"
+           asp-route-hideParticipantNames="false"
+           asp-route-newestMessageTimestamp="@Model.NewestMessageTimestamp"
+           class="btn btn-default">Reveal Names</a>
     }
     else
     {
-        <a 
-           asp-controller="Chats" 
-           asp-action="Details" 
-           asp-route-id="@Model.Chat.Id" 
-           asp-route-onlyShowUser="@Model.OnlyShowUser" 
-           asp-route-hideParticipantNames="true" 
-           asp-route-newestMessageTimestamp="@Model.NewestMessageTimestamp">Hide Names</a><span>  |</span>
+        <a asp-controller="Chats"
+           asp-action="Details"
+           asp-route-id="@Model.Chat.Id"
+           asp-route-onlyShowUser="@Model.OnlyShowUser"
+           asp-route-hideParticipantNames="true"
+           asp-route-newestMessageTimestamp="@Model.NewestMessageTimestamp"
+           class="btn btn-default">Hide Names</a>
     }
-
+    <hr />
+</div>
+<div>
+    <br />
     <a asp-action="Index">All Chats</a><span>  |</span>
 
     <a asp-controller="Chats" asp-action="Delete" asp-route-id="@Model.Chat.Id">Delete</a>

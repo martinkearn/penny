@@ -10,13 +10,11 @@ namespace TeacherPortal.Models
     {
         public Chat Chat { get; set; }
 
-        public Chat VisibleChat { get; set; }
+        public List<DateTime> MessageTimes { get; set; }
 
         public bool HideParticipantNames { get; set; }
 
         public string OnlyShowUser { get; set; }
-
-        public bool GradualReveal { get; set; }
 
         public DateTime NewestMessageTimestamp { get; set; }
     }
